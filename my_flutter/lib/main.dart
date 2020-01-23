@@ -22,18 +22,26 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  int _counter = 00009;
+  static const platform = const MethodChannel('changeTheme');
+
+  Color colorPrimary;
+  Color colorPrimaryDark;
+  Color colorAccent;
+
   ///
   /// shared preferences
   ///
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  Future<void> _readCounter() async {
+  Future<void> _readStyleColorsFromSharedPrf() async {
     final SharedPreferences prefs = await _prefs;
-    final int counter = (prefs.getInt('key') ?? 0) + 1;
 
     setState(() {
-      _counter = counter;
+      colorPrimaryDark = _getColorFromHex(prefs.getString("colorAccent"));
+      colorPrimary = _getColorFromHex(prefs.getString("colorAccent"));
+      colorAccent = _getColorFromHex(prefs.getString("colorPrimaryDark"));
     });
   }
 
@@ -41,12 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
   /// end of SharedPreferences
   ///
 
-  int _counter = 00009;
-  static const platform = const MethodChannel('changeTheme');
-
-  Color colorPrimary;
-  Color colorPrimaryDark;
-  Color colorAccent;
 
   Color hexToColor(String code) {
     return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
@@ -105,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: colorAccent,
         onPressed: () {
-          _readCounter();
+          _readStyleColorsFromSharedPrf();
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
