@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _readCounter() async {
     final SharedPreferences prefs = await _prefs;
-    final int counter = (prefs.getInt('counter') ?? 0) + 1;
+    final int counter = (prefs.getInt('key') ?? 0) + 1;
 
     setState(() {
       _counter = counter;
