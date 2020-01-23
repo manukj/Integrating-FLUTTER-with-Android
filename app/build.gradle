@@ -1,6 +1,24 @@
 apply plugin: 'com.android.application'
 
+
 android {
+    dataBinding {
+        enabled = true
+    }
+    repositories {
+        maven {
+            url '/Users/manukj/Desktop/FlutterApps/my_flutter/build/host/outputs/repo'
+        }
+        maven {
+            url 'http://download.flutter.io'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -26,4 +44,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    debugImplementation 'com.example.my_flutter:flutter_debug:1.0'
+
 }
